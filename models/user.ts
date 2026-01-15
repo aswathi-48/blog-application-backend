@@ -1,13 +1,7 @@
 import mongoose from "mongoose";
+import type { UserType } from "../utils/user.type.ts";
 
-interface User {
-  name: string;
-  email: string;
-  password: string;
-  phone: number;
-}
-
-const userSchema = new mongoose.Schema<User>(
+const userSchema = new mongoose.Schema<UserType>(
   {
     name: {
       type: String,
