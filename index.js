@@ -3,12 +3,14 @@ const app = express()
 import dotenv from 'dotenv'
 import connection from './config/db.ts'
 import blogRoutes from "./routes/blogRoutes.ts"; 
-import userRoutes from "./routes/userRoutes.ts"; 
+import userRoutes from './routes/userRoutes.ts'
 
 dotenv.config()
 connection()
 
-app.use(express.json())
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 const port = process.env.PORT
 
 app.use('/blog',blogRoutes)
