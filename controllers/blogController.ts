@@ -89,7 +89,6 @@ export const getSingleBlog = async (req: Request, res: Response) => {
 };
 
 export const updateBlog = async (req: Request, res: Response) => {
-
   try {
     const { id, title, description, category } = req.body;
 
@@ -137,5 +136,30 @@ export const updateBlog = async (req: Request, res: Response) => {
       status: false,
       message: "Server error",
     });
+  }
+};
+
+export const deleteBlog = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.body;
+    if (!id) {
+      return res
+        .status(400)
+        .json({ status: false, message: "blog ID is required" });
+    }
+    const deleteBlog = await Blog.findByIdAndDelete(id);
+    if (!deleteBlog) {
+      return res
+        .status(404)
+        .json({ status: false, message: "blog not found" });
+    }else{
+        res.status(200).json({
+            status: true,
+            message: "deleted",
+            data: deleteBlog
+        })
+    }
+  } catch (err) {
+    console.log(err);
   }
 };
